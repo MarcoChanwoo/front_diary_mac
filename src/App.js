@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Diary from "./pages/Diary";
 import Edit from "./pages/Edit";
+import "./App.css";
 
 function App() {
     return (
