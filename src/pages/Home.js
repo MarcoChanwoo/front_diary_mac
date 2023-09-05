@@ -3,7 +3,11 @@ import Editor from "../component/Editor";
 const Home = () => {
     return (
         <div>
-            <Editor />
+            <Editor
+                onSubmit={() => {
+                    alert("완료 버튼 클릭함");
+                }}
+            />
         </div>
     );
 };
