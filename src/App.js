@@ -1,23 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import emotion1 from "./img/emotion1.png";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>감정 일기장</h1>
+      <img alt="감정1" src={emotion1} />
     </div>
   );
 }
