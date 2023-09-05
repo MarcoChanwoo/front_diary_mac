@@ -4,7 +4,10 @@ import New from "./pages/New";
 import Diary from "./pages/Diary";
 import Edit from "./pages/Edit";
 import "./App.css"; // 내가 직접 추가함
-import { useEffect, useReducer, useRef } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
+
+export const DiaryStateContext = React.createContext();
+export const DiaryDispatchContext = React.createContext();
 
 const mockData = [
     {
@@ -54,6 +57,7 @@ function reducer(state, action) {
 }
 
 function App() {
+    const [isDataLoaded, setIsDataLoaded] = useState(false);
     const [data, dispatch] = useReducer(reducer, []);
     const idRef = useRef(0);
 
@@ -62,6 +66,7 @@ function App() {
             type: "INIT",
             data: mockData,
         });
+        setIsDataLoaded(true);
     }, []);
 
     const onCreate = (date, content, emotionId) => {
@@ -94,16 +99,30 @@ function App() {
         });
     };
 
-    return (
-        <div className="App">
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/new" element={<New />} />
-                <Route path="/diary/:id" element={<Diary />} />
-                <Route path="/edit" element={<Edit />} />
-            </Routes>
-        </div>
-    );
+    if (!isDataLoaded) {
+        return <div>데이터를 불러오는 중입니다</div>;
+    } else {
+        return (
+            <DiaryStateContext.Provider value={data}>
+                <DiaryDispatchContext.Provider
+                    value={{
+                        onCreate,
+                        onUpdate,
+                        onDelete,
+                    }}
+                >
+                    <div className="App">
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/new" element={<New />} />
+                            <Route path="/diary/:id" element={<Diary />} />
+                            <Route path="/edit/:id" element={<Edit />} />
+                        </Routes>
+                    </div>
+                </DiaryDispatchContext.Provider>
+            </DiaryStateContext.Provider>
+        );
+    }
 }
 
 export default App;
