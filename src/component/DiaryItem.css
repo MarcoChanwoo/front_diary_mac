@@ -33,3 +33,7 @@
 .DiaryItem .img_section img {
     width: 50%;
 }
+
+.DiaryItem .button_section {
+    min-width: 70px;
+}
